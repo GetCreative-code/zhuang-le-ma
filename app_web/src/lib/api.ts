@@ -22,9 +22,7 @@ export const api = {
   getInstallScript: (softwareName: string, version: string, platform: string) =>
     request(`/api/software/${softwareName}/install-script`, { method: 'POST', body: JSON.stringify({ software_name: softwareName, version, platform }) }),
 
-  submitFeedback: (data: { guide_id?: number; software_name: string; version: string; platform: string; is_helpful?: boolean; comment?: string }) =>
-    request('/api/feedback', { method: 'POST', body: JSON.stringify(data) }),
-
+  submitFeedback: (data: any) => request('/api/feedback', { method: 'POST', body: JSON.stringify(data) }),
   getPresets: () => request('/api/presets'),
   health: () => request('/api/health'),
 };

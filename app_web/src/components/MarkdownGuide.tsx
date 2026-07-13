@@ -1,8 +1,6 @@
 import React from 'react';
 import MarkdownRenderer from '../lib/markdown';
 
-interface MarkdownGuideProps { content: string; }
-
-export default function MarkdownGuide({ content }: MarkdownGuideProps) {
+export default function MarkdownGuide({ content }: { content: string }) {
   return <div><MarkdownRenderer content={content} /></div>;
 }

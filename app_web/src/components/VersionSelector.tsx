@@ -1,18 +1,15 @@
 import React from 'react';
 
-interface VersionSelectorProps {
-  softwareInfo: { software_name: string; display_name: string; versions: Array<{version:string;is_stable:boolean}>; platform: string; selected_version?: string; selected_platform?: string };
+export default function VersionSelector({ softwareInfo, platformOptions, onVersionChange, onPlatformChange, onGenerate, onBack }: {
+  softwareInfo: { display_name: string; versions: Array<{version:string;is_stable:boolean}>; selected_version?: string; selected_platform?: string };
   platformOptions: Array<{value:string;label:string}>;
-  onVersionChange: (version: string) => void;
-  onPlatformChange: (platform: string) => void;
+  onVersionChange: (v: string) => void;
+  onPlatformChange: (p: string) => void;
   onGenerate: () => void;
   onBack: () => void;
-}
-
-export default function VersionSelector({ softwareInfo, platformOptions, onVersionChange, onPlatformChange, onGenerate, onBack }: VersionSelectorProps) {
+}) {
   const { display_name, versions, selected_version, selected_platform } = softwareInfo;
   const stableVersions = versions.filter(v => v.is_stable);
-  const betaVersions = versions.filter(v => !v.is_stable);
 
   return (
     <div className="space-y-6 slide-up max-w-2xl mx-auto">
@@ -34,14 +31,6 @@ export default function VersionSelector({ softwareInfo, platformOptions, onVersi
           <button key={v.version} onClick={() => onVersionChange(v.version)}
             className={`w-full flex items-center justify-between p-3 rounded-xl border-2 mb-2 ${selected_version===v.version?'border-green-500 bg-green-50':'border-gray-100'}`}>
             <span className="font-mono font-bold">{v.version}</span>
-            <span className="badge bg-green-100 text-green-700">Stable</span>
-          </button>
-        ))}
-        {betaVersions.map(v => (
-          <button key={v.version} onClick={() => onVersionChange(v.version)}
-            className={`w-full flex items-center justify-between p-3 rounded-xl border-2 mb-2 ${selected_version===v.version?'border-yellow-500 bg-yellow-50':'border-gray-100'}`}>
-            <span className="font-mono font-bold">{v.version}</span>
-            <span className="badge bg-yellow-100 text-yellow-700">Beta</span>
           </button>
         ))}
       </div>
